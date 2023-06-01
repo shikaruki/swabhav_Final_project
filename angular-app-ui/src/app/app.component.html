@@ -1,4 +1,4 @@
-<app-headercomponent></app-headercomponent>
+<app-headercomponent (menuClicked)="sideNav.toggle()"></app-headercomponent>
 
 <mat-sidenav-container>
   <mat-sidenav mode="side" #sideNav opened class="mat-elevation-z6">

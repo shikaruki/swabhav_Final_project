@@ -1,9 +1,29 @@
 <mat-toolbar color="primary">
-<button mat-icon-button>
-<mat-icon>menu</mat-icon>
-</button>
-<h5>MangmentApp</h5>
-<div class="user-info">
-
-</div>
+    <button mat-icon-button>
+        <mat-icon mat-icon-button (click)="menuClicked.emit()">menu</mat-icon>
+    </button>
+    <h5>MangmentApp</h5>
+    <div class="user-info">
+        <span>
+            Hii,
+            Ekta
+        </span>
+        <button mat-icon-button [matMenuTriggerFor]="userMenu">
+            <mat-icon>account_circle</mat-icon>
+        </button>
+    </div>
+    <mat-menu #userMenu="matMenu">
+        <button mat-menu-item routerLink="/login">
+            <mat-icon>login</mat-icon>
+            <span>Login</span>
+        </button>
+        <button mat-menu-item routerLink="/profile">
+            <mat-icon>account_box</mat-icon>
+            <span>Profile</span>
+        </button>
+        <button mat-menu-item routerLink="/logout">
+            <mat-icon>logout</mat-icon>
+            <span>Log out</span>
+        </button>
+    </mat-menu>
 </mat-toolbar>
