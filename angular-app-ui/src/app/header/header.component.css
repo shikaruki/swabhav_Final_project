@@ -2,9 +2,9 @@
     display: block;
     z-index: 3;
 }
-mat-toolbar {
+mat-toolbar{
     display: flex;
-    justify-content: space-between;
+    justify-content:space-between ;
 }
 .user-info{
     display: flex;
@@ -13,6 +13,6 @@ mat-toolbar {
 .user-info span{
     margin-right: 0.5rem;
 }
-.user-info mat-icon{
+mat-icon{
     transform: scale(1.4);
 }

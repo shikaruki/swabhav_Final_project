@@ -4,12 +4,12 @@
     min-height: 100vh;
     z-index: 1;
 }
-mat-sidenav-container{
-    flex-grow: 2;
-    background-color:#272727;
-    color: white;
-}
 mat-sidenav{
-    background-color: #434242;
-    color: white;
+    background-color: #383838;
+    color: #fff;
+}
+mat-sidenav-container{
+flex-grow: 2;
+background-color: #434242;
+color: #fff;
 }

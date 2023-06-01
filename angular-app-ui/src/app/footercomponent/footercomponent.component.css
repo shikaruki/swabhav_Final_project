@@ -1,9 +1,0 @@
-:host{
-  display: block;
-  z-index: 3;
-  text-align: center;
-}
-mat-toolbar {
-  display: flex;
-  text-align: center;
-}
