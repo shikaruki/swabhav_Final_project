@@ -9,6 +9,10 @@ import { FooterComponent } from './footer/footer.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { MaterialModule } from './material/material.module';
 import { LibraryComponent } from './library/library.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,14 +21,17 @@ import { LibraryComponent } from './library/library.component';
     FooterComponent,
     SidenavComponent,
     LibraryComponent,
+    LoginComponent,
+    RegisterComponent,
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
-  
+    MaterialModule,
+    ReactiveFormsModule,
+    HttpClientModule
     
   ],
   providers: [],
