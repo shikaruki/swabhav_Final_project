@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { AbstractControl, AbstractControlOptions, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { User, UserType } from '../models/models';
+import { ApiService } from '../services/api.service';
 
 @Component({
-  selector: 'app-register',
+  selector: 'register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
@@ -12,20 +13,21 @@ export class RegisterComponent {
   //for displaying the msg
   responseMsg: string = '';
   registerForm: FormGroup;
-  //using reactive form ,form builder is syntactic sugar 
-  constructor(private fb: FormBuilder) {
-    //initailzating the form and validating it 
+  //using reactive form ,form builder is syntactic sugar
+  constructor(private fb: FormBuilder,private api:ApiService) {
+    //initailzating the form and validating it
     this.registerForm = fb.group(
       {
         firstName: fb.control('', [Validators.required]),
         lastName: fb.control('', [Validators.required]),
         email: fb.control('', [Validators.required, Validators.email]),
         password: fb.control('', [
+          Validators.required,
           Validators.minLength(8),
           Validators.maxLength(15),
         ]),
         rpassword: fb.control(''),
-        userType: fb.control('student'),
+        // userType: fb.control('student'),
       }, {
         validators: [repeatPasswordValidator],          //applying validator on whole form ,
         //and typecasting the validator object into abstract control option
@@ -41,16 +43,26 @@ export class RegisterComponent {
   lastName:this.registerForm.get('lastName')?.value,
   email:this.registerForm.get('email')?.value,
   userType:UserType.USER,
-  mobile: 0,
+  mobile: '',
   password:this.registerForm.get('password')?.value,
   blocked:false,
   active:false,
   createdOn:'',
   fine:0,
+  };
+  //  console.log(user);
+  this.api.createAccount(user).subscribe({
+    next: (res: any) => {
+      console.log(res);
+      this.responseMsg = res.toString();
+    },
+    error: (err: any) => {
+      console.log('Error: ');
+      console.log(err);
+    },
+  });
   }
-   console.log(user);
-  }
-  
+
   getFirstNameErrors() {
     if (this.FirstName.hasError('required')) return 'Field is requied!';
     return '';
@@ -88,10 +100,10 @@ export class RegisterComponent {
   get RPassword(): FormControl {
     return this.registerForm.get('rpassword') as FormControl;
   }
-  
+
 }
 //creating the custom validator for confirm password,
-//validatorFn is function that takes input on validation 
+//validatorFn is function that takes input on validation
 //are applying if error return the validation error object otherwise return a null
 
 export const repeatPasswordValidator: ValidatorFn = (

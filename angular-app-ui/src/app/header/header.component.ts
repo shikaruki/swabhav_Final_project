@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-header',
@@ -7,4 +8,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class HeaderComponent {
 @Output() menuClicked= new EventEmitter<boolean>();
+constructor(public api: ApiService) {}
+  logOut() {
+    this.api.deleteToken();
+  }
 }
