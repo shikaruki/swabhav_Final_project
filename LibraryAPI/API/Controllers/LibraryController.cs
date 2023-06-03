@@ -1,6 +1,5 @@
 ﻿using API.Data_Access;
 using API.Model;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -44,6 +43,24 @@ namespace API.Controllers
                 }
             }
             return Ok("Invalid");
+        }
+
+        [HttpGet("GetAllBooks")]
+        public IActionResult GetALlBooks()
+        {
+            ModelBase model = new ModelBase();
+            var books = library.GetAllBooks();
+            var booksToSend = books.Select(book => new
+            {
+                book.Id,
+                book.Title,
+                book.Category.Category,
+                book.Category.SubCategory,
+                book.Price,
+                Available = !book.Ordered,
+                book.Author
+            }).ToList();
+            return Ok(booksToSend);
         }
 
     }

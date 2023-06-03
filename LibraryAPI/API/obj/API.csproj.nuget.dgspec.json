@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\monocept_project\\LibraryAPI\\API\\API.csproj": {}
+    "D:\\monocept_project\\swabhav_Final_project\\LibraryAPI\\API\\API.csproj": {}
   },
   "projects": {
-    "D:\\monocept_project\\LibraryAPI\\API\\API.csproj": {
+    "D:\\monocept_project\\swabhav_Final_project\\LibraryAPI\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\monocept_project\\LibraryAPI\\API\\API.csproj",
+        "projectUniqueName": "D:\\monocept_project\\swabhav_Final_project\\LibraryAPI\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "D:\\monocept_project\\LibraryAPI\\API\\API.csproj",
+        "projectPath": "D:\\monocept_project\\swabhav_Final_project\\LibraryAPI\\API\\API.csproj",
         "packagesPath": "C:\\Users\\ranch\\.nuget\\packages\\",
-        "outputPath": "D:\\monocept_project\\LibraryAPI\\API\\obj\\",
+        "outputPath": "D:\\monocept_project\\swabhav_Final_project\\LibraryAPI\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

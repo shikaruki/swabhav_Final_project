@@ -56,6 +56,23 @@ namespace API.Data_Access
             return result;
         }
 
+        public IList<Book> GetAllBooks()
+        {
+            IEnumerable<Book> books = null;
+            using (var connection = new SqlConnection(DbConnection))
+            {
+                var sql = "select * from Books;";
+                books = connection.Query<Book>(sql);
+
+                foreach (var book in books)
+                {
+                    sql = "select * from BookCategories where Id=" + book.CategoryId;
+                    book.Category = connection.QuerySingle<BookCategory>(sql);
+                }
+            }
+            return books.ToList();
+        }
+
         public bool IsEmailAvailable(string email)
         {
             var result = false;

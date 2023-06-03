@@ -7,5 +7,6 @@ namespace API.Data_Access
         int CreateUser(User user);
         bool IsEmailAvailable(string email);
         bool AuthenticateUser(string email, string password, out User? user);
+        IList<Book> GetAllBooks();
     }
 }
