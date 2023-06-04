@@ -24,3 +24,20 @@ export interface User{
     fine:number;
 
 }
+
+export interface Book {
+  id: number;
+  title: string;
+  category: string;
+  subCategory: string;
+  price: number;
+  available: boolean;
+  count?: number;
+  author: string;
+}
+
+export interface CategoryBooks {
+  category: string;
+  subCategory: string;
+  books: Book[];
+}
