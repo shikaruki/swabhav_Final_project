@@ -4,6 +4,7 @@ import { LibraryComponent } from './library/library.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
@@ -20,8 +21,13 @@ const routes: Routes = [
   {
     path:'register',
     component:RegisterComponent
+  },
+  {
+    path:'users/profile',
+    component:ProfileComponent,
+    canActivate: [AuthenticationGuard],
   }
-
+  
 ];
 
 @NgModule({

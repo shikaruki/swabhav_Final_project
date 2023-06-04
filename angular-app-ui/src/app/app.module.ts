@@ -14,6 +14,7 @@ import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { JwtModule } from '@auth0/angular-jwt';
     LibraryComponent,
     LoginComponent,
     RegisterComponent,
+    ProfileComponent,
 
   ],
   imports: [

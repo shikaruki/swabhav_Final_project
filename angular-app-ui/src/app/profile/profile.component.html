@@ -1,0 +1,27 @@
+<!-- <p>profile works!</p> -->
+
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <h2>Your Profile</h2>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!--Name column-->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let element">{{element.name}}</td>
+            </ng-container>
+            <!--Value column-->
+            <ng-container matColumnDef="value">
+                <th mat-header-cell *matHeaderCellDef>Value</th>
+                <td mat-cell *matCellDef="let element">{{element.value}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columns" hidden></tr>
+            <tr mat-row *matRowDef="let row, columns:columns"></tr>
+
+        </table>
+    </mat-card-content>
+</mat-card>
