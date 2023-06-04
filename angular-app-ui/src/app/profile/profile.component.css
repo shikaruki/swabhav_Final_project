@@ -1,0 +1,28 @@
+:host {
+    display: block;
+    width: max-content;
+    margin: 3rem auto 0;
+   
+  }
+  
+
+  mat-card mat-card-title h2{
+    letter-spacing: 2px;
+    font-weight: bold;
+    color: darkblue;
+    background-color: #fff;
+  }
+  mat-card mat-card-content table{
+    width: 100%;
+  }
+  mat-card mat-card-content .mat-mdc-row :hover {
+    background-color: rgba( #ffffff);
+  }
+
+  mat-card mat-card-content .mat-column-name{
+    border-right: 1px solid black;
+  }
+  mat-card mat-card-content .mat-mdc-cell{
+    padding: 1rem;
+    font-size: 1.3rem;
+  }
