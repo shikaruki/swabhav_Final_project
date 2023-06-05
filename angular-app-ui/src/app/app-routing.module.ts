@@ -5,9 +5,14 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
 import { ProfileComponent } from './profile/profile.component';
+<<<<<<< HEAD
+import { UsersListComponent } from './users-list/users-list.component';
+import { AuthorizationGuard } from './authorization.guard';
+=======
 import { OrderComponent } from './order/order.component';
 import { AuthorizationGuard } from './authorization.guard';
 import { OrdersComponent } from './orders/orders.component';
+>>>>>>> 48111468f37f78cd6ab85a560ac2c272c5171617
 
 
 const routes: Routes = [
@@ -26,10 +31,19 @@ const routes: Routes = [
     component:RegisterComponent
   },
   {
+   path:'users/list',
+   component:UsersListComponent,
+   canActivate:[AuthorizationGuard]
+  },
+  {
     path:'users/profile',
     component:ProfileComponent,
     canActivate: [AuthenticationGuard],
   },
+<<<<<<< HEAD
+  
+
+=======
   {
     path: 'users/order',
     component: OrderComponent,
@@ -40,6 +54,7 @@ const routes: Routes = [
     component: OrdersComponent,
     canActivate: [AuthorizationGuard],
   }
+>>>>>>> 48111468f37f78cd6ab85a560ac2c272c5171617
 ];
 
 @NgModule({

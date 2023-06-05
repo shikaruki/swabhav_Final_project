@@ -16,9 +16,10 @@ mat-card {
   margin-bottom: 1rem;
 }
 mat-card mat-card-content {
-  font-size: 1.5rem;
+  font-size: 2rem;
   display: flex;
   justify-content: space-between;
+ color:#080202;
 }
 
 mat-accordion mat-panel-title {
