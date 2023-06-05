@@ -73,6 +73,7 @@ namespace API.Data_Access
             return books.ToList();
         }
 
+<<<<<<< HEAD
         public IList<User> GetUsers()
         {
             IEnumerable<User> users;
@@ -109,6 +110,46 @@ namespace API.Data_Access
                 }
             }
             return users.ToList();
+=======
+        public IList<Order> GetAllOrders()
+        {
+            IEnumerable<Order> orders;
+            using (var connection = new SqlConnection(DbConnection))
+            {
+                var sql = @"
+                    select 
+                        o.Id, 
+                        u.Id as UserId, CONCAT(u.FirstName, ' ', u.LastName) as Name,
+                        o.BookId as BookId, b.Title as BookName,
+                        o.OrderedOn as OrderDate, o.Returned as Returned
+                    from Users u LEFT JOIN Orders o ON u.Id=o.UserId
+                    LEFT JOIN Books b ON o.BookId=b.Id
+                    where o.Id IS NOT NULL;
+                ";
+                orders = connection.Query<Order>(sql);
+            }
+            return orders.ToList();
+        }
+
+        public IList<Order> GetOrdersOfUser(int userId)
+        {
+            IEnumerable<Order> orders;
+            using (var connection = new SqlConnection(DbConnection))
+            {
+                var sql = @"
+                    select 
+                        o.Id, 
+                        u.Id as UserId, CONCAT(u.FirstName, ' ', u.LastName) as Name,
+                        o.BookId as BookId, b.Title as BookName,
+                        o.OrderedOn as OrderDate, o.Returned as Returned
+                    from Users u LEFT JOIN Orders o ON u.Id=o.UserId
+                    LEFT JOIN Books b ON o.BookId=b.Id
+                    where o.UserId IN (@Id);
+                ";
+                orders = connection.Query<Order>(sql, new { Id = userId });
+            }
+            return orders.ToList();
+>>>>>>> 48111468f37f78cd6ab85a560ac2c272c5171617
         }
 
         public bool IsEmailAvailable(string email)
@@ -123,8 +164,29 @@ namespace API.Data_Access
             return !result;
         }
 
+<<<<<<< HEAD
 
 
 
+=======
+        public bool OrderBook(int userId, int bookId)
+        {
+            var ordered = false;
+
+            using (var connection = new SqlConnection(DbConnection))
+            {
+                var sql = $"insert into Orders (UserId, BookId, OrderedOn, Returned) values ({userId}, {bookId}, '{DateTime.Now:yyyy-MM-dd HH:mm:ss}', 0);";
+                var inserted = connection.Execute(sql) == 1;
+                if (inserted)
+                {
+                    sql = $"update Books set Ordered=1 where Id={bookId}";
+                    var updated = connection.Execute(sql) == 1;
+                    ordered = updated;
+                }
+            }
+
+            return ordered;
+        }
+>>>>>>> 48111468f37f78cd6ab85a560ac2c272c5171617
     }
 }

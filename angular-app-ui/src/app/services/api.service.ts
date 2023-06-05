@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Book, User, UserType } from '../models/models';
+import { Book, Order, User, UserType } from '../models/models';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/internal/operators/map';
 import { Observable } from 'rxjs';
@@ -67,6 +67,7 @@ export class ApiService {
     });
   }
 
+<<<<<<< HEAD
   //call the api and send the request in the backend and all the user data go through the pipe,
   //pipe is the method of rxjs data will go through the all method inside the pipe and subscribe this method in usercomponent.ts file
   getAllUsers(){
@@ -104,4 +105,13 @@ export class ApiService {
     });
   }
   
+=======
+  getOrdersOfUser(userid: number) {
+    return this.http.get<Order[]>(this.baseUrl + 'GetOrders/' + userid);
+  }
+  getAllOrders() {
+    return this.http.get<Order[]>(this.baseUrl + 'GetAllOrders');
+  }
+
+>>>>>>> 48111468f37f78cd6ab85a560ac2c272c5171617
 }
