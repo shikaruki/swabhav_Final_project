@@ -8,5 +8,8 @@ namespace API.Data_Access
         bool IsEmailAvailable(string email);
         bool AuthenticateUser(string email, string password, out User? user);
         IList<Book> GetAllBooks();
+
+        IList<User>GetUsers();
+
     }
 }

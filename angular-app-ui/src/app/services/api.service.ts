@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Book, User, UserType } from '../models/models';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { map } from 'rxjs/internal/operators/map';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -65,4 +67,41 @@ export class ApiService {
     });
   }
 
+  //call the api and send the request in the backend and all the user data go through the pipe,
+  //pipe is the method of rxjs data will go through the all method inside the pipe and subscribe this method in usercomponent.ts file
+  getAllUsers(){
+    return this.http.get<User[]>(this.baseUrl+'GetAllUsers').pipe(
+      map((users)=>{
+        users.map((user)=>{
+          let temp:User=user;
+          temp.userType= user.userType == 0?UserType.USER:UserType.ADMIN;
+          return temp;
+        })
+      })
+    );
+  }
+  blockUser(id: number) {
+    return this.http.get(this.baseUrl + 'ChangeBlockStatus/1/' + id, {
+      responseType: 'text',
+    });
+  }
+
+  unblockUser(id: number) {
+    return this.http.get(this.baseUrl + 'ChangeBlockStatus/0/' + id, {
+      responseType: 'text',
+    });
+  }
+
+  enableUser(id: number) {
+    return this.http.get(this.baseUrl + 'ChangeEnableStatus/1/' + id, {
+      responseType: 'text',
+    });
+  }
+
+  disableUser(id: number) {
+    return this.http.get(this.baseUrl + 'ChangeEnableStatus/0/' + id, {
+      responseType: 'text',
+    });
+  }
+  
 }

@@ -5,6 +5,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
 import { ProfileComponent } from './profile/profile.component';
+import { UsersListComponent } from './users-list/users-list.component';
+import { AuthorizationGuard } from './authorization.guard';
 
 
 const routes: Routes = [
@@ -23,11 +25,17 @@ const routes: Routes = [
     component:RegisterComponent
   },
   {
+   path:'users/list',
+   component:UsersListComponent,
+   canActivate:[AuthorizationGuard]
+  },
+  {
     path:'users/profile',
     component:ProfileComponent,
     canActivate: [AuthenticationGuard],
-  }
+  },
   
+
 ];
 
 @NgModule({
