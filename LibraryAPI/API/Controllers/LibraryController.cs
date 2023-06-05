@@ -80,5 +80,26 @@ namespace API.Controllers
             return Ok(library.GetAllOrders());
         }
 
+        [HttpGet("GetAllUsers")]
+        public IActionResult GetAllUsers()
+        {
+            //call the getUsers func and store it in user and make a dynamic object to get data from that backend 
+            var users = library.GetUsers();
+            var result = users.Select(user => new
+            {
+                user.Id,
+                user.FirstName,
+                user.LastName,
+                user.Email,
+                user.Mobile,
+                user.Blocked,
+                user.Active,
+                user.CreatedOn,
+                user.UserType,
+                user.Fine
+            });
+            return Ok(result);
+        }
+
     }
 }

@@ -73,6 +73,44 @@ namespace API.Data_Access
             return books.ToList();
         }
 
+<<<<<<< HEAD
+        public IList<User> GetUsers()
+        {
+            IEnumerable<User> users;
+            using(var connection = new SqlConnection(DbConnection))
+            { 
+                //map it into user object
+                users = connection.Query<User>("select * from  Users;");
+                //list of order of that user for calculating the fine
+                //select the user Id ,book Id on which date they order the book if already return then no fine othrrwise calculate the fine.
+                var listOfOrders = connection.Query("select u.Id as UserId,o.BookId as BookId,o.OrderedOn as OrderDate,o.Returned as Returned from  Users u LEFT JOIN Orders o ON u.Id=o.UserId;");
+                //iterate over the individual user for calculating the fine
+                foreach (var user in users)
+                {
+                    //list of order belong to that particular user 
+                    var orders =listOfOrders.Where(lo=>lo.UserId == user.Id).ToList();
+                    var fine = 0;
+                    foreach (var order in orders)
+                    {
+                        //if book is not return excute the query otherwise no
+                        if(order.BookId !=null && order.Returned !=null && order.Returned ==false)
+                        {
+                            var orderDate=order.OrderDate;
+                            var maxDate = orderDate.AddDays(10);
+                            var currentDate=DateTime.Now;
+
+                            var extraDays=(currentDate-maxDate).Days;
+                            //if extra days are negative assign a 0 otherwise assign a extradays
+                            extraDays = extraDays < 0 ? 0 : extraDays;
+                            //50 rs for per day and assign it to the user fine
+                            fine = extraDays * 50;
+                            user.Fine += fine;
+                        }
+                    }
+                }
+            }
+            return users.ToList();
+=======
         public IList<Order> GetAllOrders()
         {
             IEnumerable<Order> orders;
@@ -111,6 +149,7 @@ namespace API.Data_Access
                 orders = connection.Query<Order>(sql, new { Id = userId });
             }
             return orders.ToList();
+>>>>>>> 48111468f37f78cd6ab85a560ac2c272c5171617
         }
 
         public bool IsEmailAvailable(string email)
@@ -125,6 +164,11 @@ namespace API.Data_Access
             return !result;
         }
 
+<<<<<<< HEAD
+
+
+
+=======
         public bool OrderBook(int userId, int bookId)
         {
             var ordered = false;
@@ -143,5 +187,6 @@ namespace API.Data_Access
 
             return ordered;
         }
+>>>>>>> 48111468f37f78cd6ab85a560ac2c272c5171617
     }
 }
