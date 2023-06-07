@@ -10,11 +10,25 @@ namespace API.Controllers
     {
         private readonly IDataAccess library;
         private readonly IConfiguration configuration;
+
         public LibraryController(IDataAccess library, IConfiguration configuration = null)
         {
             this.library = library;
             this.configuration = configuration;
+
         }
+
+
+        private string GenerateResetToken(string email)
+        {
+            // Logic to generate a unique reset token for the user
+            // You can customize this based on your application's requirements
+            // This could involve generating a random token and associating it with the user in your data storage
+            return "your-reset-token";
+        }
+
+
+
         [HttpPost("CreateAccount")]
         public IActionResult CreateAccount(User user)
         {
@@ -30,13 +44,13 @@ namespace API.Controllers
         [HttpGet("Login")]
         public IActionResult Login(string email, string password)
         {
-            
+
             if (library.AuthenticateUser(email, password, out User? user))
             {
                 if (user != null)
                 {
                     Console.WriteLine(configuration["Jwt:key"]);
-                    Console.WriteLine(configuration["Jwt:Duration"].GetType() );
+                    Console.WriteLine(configuration["Jwt:Duration"].GetType());
                     var jwt = new Jwt(configuration["Jwt:Key"], configuration["Jwt:Duration"]);
                     var token = jwt.GenerateToken(user);
                     return Ok(token);
@@ -102,10 +116,37 @@ namespace API.Controllers
         }
 
         [HttpGet("ReturnBook/{bookId}/{userId}")]
-        public IActionResult ReturnBook(string bookId,string userId) 
+        public IActionResult ReturnBook(string bookId, string userId)
         {
-            var result= library.ReturnBook(int.Parse(userId),int.Parse(bookId));
-            return Ok(result == true ? "success":"not returned");
+            var result = library.ReturnBook(int.Parse(userId), int.Parse(bookId));
+            return Ok(result == true ? "success" : "not returned");
+
+        }
+        [HttpGet("ChangeBlockStatus/{status}/{id}")]
+        public IActionResult ChangeBlockStatus(int status, int id)
+        {
+            if (status == 1)
+            {
+                library.BlockUser(id);
+            }
+            else
+            {
+                library.UnblockUser(id);
+            }
+            return Ok("success");
+        }
+        [HttpGet("ChangeEnableStatus/{status}/{id}")]
+        public IActionResult ChangeEnableStatus(int status, int id)
+        {
+            if (status == 1)
+            {
+                library.ActivateUser(id);
+            }
+            else
+            {
+                library.DeactivateUser(id);
+            }
+            return Ok("success");
         }
 
     }

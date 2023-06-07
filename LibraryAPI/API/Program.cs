@@ -7,7 +7,7 @@ namespace API
 {
     public class Program
     {
-        
+
 
         public static void Main(string[] args)
         {
@@ -47,11 +47,12 @@ namespace API
                 };
 
 
-                });
+            });
 
-                //DI
-                builder.Services.AddSingleton<IDataAccess,DataAccess>(); 
 
+            //DI
+            builder.Services.AddSingleton<IDataAccess, DataAccess>();
+            
 
             var app = builder.Build();
 
@@ -65,6 +66,7 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseCors(MyAllowSpecificOrigins);
+           
             app.UseAuthentication();
 
             app.UseAuthorization();
@@ -73,5 +75,6 @@ namespace API
 
             app.Run();
         }
+
     }
 }

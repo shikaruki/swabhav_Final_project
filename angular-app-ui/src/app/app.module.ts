@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,9 +16,10 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { OrderComponent } from './order/order.component';
-import { OrdersComponent } from './orders/orders.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { ReturnbookComponent } from './returnbook/returnbook.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+
 
 @NgModule({
   declarations: [
@@ -33,11 +33,10 @@ import { ReturnbookComponent } from './returnbook/returnbook.component';
     ProfileComponent,
     UsersListComponent,
     OrderComponent,
-    OrdersComponent,
     ForgotComponent,
     ReturnbookComponent,
 
-  ],
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -45,6 +44,8 @@ import { ReturnbookComponent } from './returnbook/returnbook.component';
     MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatButtonToggleModule,
+    
     JwtModule.forRoot({
       config: {
       tokenGetter: () => {

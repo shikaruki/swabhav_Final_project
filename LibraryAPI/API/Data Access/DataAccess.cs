@@ -145,7 +145,8 @@ namespace API.Data_Access
             }
             return users.ToList();
         }
-         public IList<Order> GetAllOrders()
+        
+        public IList<Order> GetAllOrders()
         {
             IEnumerable<Order> orders;
             using (var connection = new SqlConnection(DbConnection))
@@ -233,5 +234,31 @@ namespace API.Data_Access
             }
             return returned;
         }
+        public void BlockUser(int userId)
+        {
+            using var connection = new SqlConnection(DbConnection);
+            connection.Execute("update Users set Blocked=1 where Id=@Id", new { Id = userId });
+        }
+
+        public void UnblockUser(int userId)
+        {
+            using var connection = new SqlConnection(DbConnection);
+            connection.Execute("update Users set Blocked=0 where Id=@Id", new { Id = userId });
+        }
+
+        public void DeactivateUser(int userId)
+        {
+            using var connection = new SqlConnection(DbConnection);
+            connection.Execute("update Users set Active=0 where Id=@Id", new { Id = userId });
+        }
+
+        public void ActivateUser(int userId)
+        {
+            using var connection = new SqlConnection(DbConnection);
+            connection.Execute("update Users set Active=1 where Id=@Id", new { Id = userId });
+        }
+
+        
+
     }
 }

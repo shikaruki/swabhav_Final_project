@@ -6,10 +6,8 @@ import { RegisterComponent } from './register/register.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersListComponent } from './users-list/users-list.component';
-//import { AuthorizationGuard } from './authorization.guard';
-import { OrderComponent } from './order/order.component';
 import { AuthorizationGuard } from './authorization.guard';
-import { OrdersComponent } from './orders/orders.component';
+import { OrderComponent } from './order/order.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { ReturnbookComponent } from './returnbook/returnbook.component';
 
@@ -48,11 +46,7 @@ const routes: Routes = [
     component: OrderComponent,
     canActivate: [AuthenticationGuard],
   },
-  {
-    path: 'users/all-orders',
-    component: OrdersComponent,
-    canActivate: [AuthorizationGuard],
-  },
+  
   {
     path:'books/return',
     component:ReturnbookComponent,

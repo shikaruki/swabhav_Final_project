@@ -5,10 +5,9 @@ import { ApiService } from '../services/api.service';
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.css']
+  styleUrls: ['./users-list.component.css'],
 })
 export class UsersListComponent implements OnInit {
-  //creating two variable one for storing the data from backend and another for column
   users: User[] = [];
   columnsToDisplay: string[] = [
     'id',
@@ -22,17 +21,18 @@ export class UsersListComponent implements OnInit {
     'action',
   ];
 
-  //injecting the api service in the constructor and and make getalluser function in api service 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService) {}
+
   ngOnInit(): void {
     this.api.getAllUsers().subscribe({
-      next: (res:any) => {
+      next: (res: User[]) => {
         this.users = [];
         this.users = res;
       },
-      error: (err: any) => console.log(),
+      error: (err: any) => console.log(err),
     });
   }
+
   blockUser(user: User) {
     if (user.blocked) {
       this.api.unblockUser(user.id).subscribe({
@@ -68,5 +68,4 @@ export class UsersListComponent implements OnInit {
       });
     }
   }
-
 }

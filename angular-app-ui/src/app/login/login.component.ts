@@ -44,7 +44,7 @@ export class LoginComponent {
         else {
           this.responseMsg = '';
           this.api.saveToken(res.toString());
-          
+
           let isActive = this.api.getTokenUserInfo()?.active ?? false;
           if (isActive) this.router.navigateByUrl('/books/library');
           else {

@@ -9,6 +9,7 @@ import { Order } from '../models/models';
 })
 export class OrderComponent {
   listOfOrders: Order[] = [];
+  
   columns: string[] = ['id', 'name', 'bookid', 'book', 'date', 'returned'];
 
   constructor(private api: ApiService) {}

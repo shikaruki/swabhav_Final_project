@@ -202,3 +202,13 @@ D:\Final_Project\swabhav_Final_project\LibraryAPI\API\obj\Debug\net6.0\refint\AP
 D:\Final_Project\swabhav_Final_project\LibraryAPI\API\obj\Debug\net6.0\API.pdb
 D:\Final_Project\swabhav_Final_project\LibraryAPI\API\obj\Debug\net6.0\API.genruntimeconfig.cache
 D:\Final_Project\swabhav_Final_project\LibraryAPI\API\obj\Debug\net6.0\ref\API.dll
+D:\monocept_project\swabhav_Final_project\LibraryAPI\API\bin\Debug\net6.0\BouncyCastle.Cryptography.dll
+D:\monocept_project\swabhav_Final_project\LibraryAPI\API\bin\Debug\net6.0\MailKit.dll
+D:\monocept_project\swabhav_Final_project\LibraryAPI\API\bin\Debug\net6.0\MimeKit.dll
+D:\monocept_project\swabhav_Final_project\LibraryAPI\API\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
+D:\monocept_project\swabhav_Final_project\LibraryAPI\API\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
+D:\Final_Project\swabhav_Final_project\LibraryAPI\API\bin\Debug\net6.0\BouncyCastle.Cryptography.dll
+D:\Final_Project\swabhav_Final_project\LibraryAPI\API\bin\Debug\net6.0\MailKit.dll
+D:\Final_Project\swabhav_Final_project\LibraryAPI\API\bin\Debug\net6.0\MimeKit.dll
+D:\Final_Project\swabhav_Final_project\LibraryAPI\API\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
+D:\Final_Project\swabhav_Final_project\LibraryAPI\API\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
