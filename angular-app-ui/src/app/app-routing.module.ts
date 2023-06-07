@@ -10,6 +10,8 @@ import { AuthorizationGuard } from './authorization.guard';
 import { OrderComponent } from './order/order.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { ReturnbookComponent } from './returnbook/returnbook.component';
+import { OrdersComponent } from './orders/orders.component';
+import { ManageBooksComponent } from './manage-books/manage-books.component';
 
 
 const routes: Routes = [
@@ -46,12 +48,22 @@ const routes: Routes = [
     component: OrderComponent,
     canActivate: [AuthenticationGuard],
   },
+  {
+    path: 'users/all-orders',
+    component: OrdersComponent,
+    canActivate: [AuthorizationGuard],
+  },
   
   {
     path:'books/return',
     component:ReturnbookComponent,
     canActivate:[AuthorizationGuard],
-  }
+  },
+  {
+    path: 'books/maintenance',
+    component: ManageBooksComponent,
+    canActivate: [AuthorizationGuard],
+  },
 ];
 
 @NgModule({

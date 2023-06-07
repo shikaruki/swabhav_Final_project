@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
   baseUrl = 'https://localhost:7113/api/Library/';
-  constructor(private http: HttpClient, private jwt: JwtHelperService) {}
+  constructor(private http: HttpClient, private jwt: JwtHelperService) { }
 
   createAccount(user: User) {
     return this.http.post(this.baseUrl + 'CreateAccount', user, {
@@ -104,7 +104,7 @@ export class ApiService {
       responseType: 'text',
     });
   }
-  
+
 
   getOrdersOfUser(userid: number) {
     return this.http.get<Order[]>(this.baseUrl + 'GetOrders/' + userid);
@@ -112,10 +112,23 @@ export class ApiService {
   getAllOrders() {
     return this.http.get<Order[]>(this.baseUrl + 'GetAllOrders');
   }
-   returnBook(bookId:string,userId:string){
-    return this.http.get(this.baseUrl+'ReturnBook/'+bookId+'/'+userId,{
-    responseType:'text',
+  
+  returnBook(bookId: string, userId: string) {
+    return this.http.get(this.baseUrl + 'ReturnBook/' + bookId + '/' + userId, {
+      responseType: 'text',
     });
 
-   }
+  }
+
+  insertBook(book: any) {
+    return this.http.post(this.baseUrl + 'InsertBook', book, {
+      responseType: 'text',
+    });
+  }
+
+  deleteBook(id: number) {
+    return this.http.delete(this.baseUrl + 'DeleteBook/' + id, {
+      responseType: 'text',
+    });
+  }
 }

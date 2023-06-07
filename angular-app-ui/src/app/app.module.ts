@@ -19,7 +19,8 @@ import { OrderComponent } from './order/order.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { ReturnbookComponent } from './returnbook/returnbook.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-
+import { OrdersComponent } from './orders/orders.component';
+import { ManageBooksComponent } from './manage-books/manage-books.component';
 
 @NgModule({
   declarations: [
@@ -33,8 +34,10 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     ProfileComponent,
     UsersListComponent,
     OrderComponent,
+    OrdersComponent,
     ForgotComponent,
     ReturnbookComponent,
+    ManageBooksComponent,
 
     ],
   imports: [

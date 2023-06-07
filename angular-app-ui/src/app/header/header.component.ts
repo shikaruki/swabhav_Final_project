@@ -11,5 +11,6 @@ export class HeaderComponent {
 constructor(public api: ApiService) {}
   logOut() {
     this.api.deleteToken();
+    location.reload();
   }
 }
