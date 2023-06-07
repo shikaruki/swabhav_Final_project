@@ -5,11 +5,11 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/internal/operators/map';
 import { Observable } from 'rxjs';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
   baseUrl = 'https://localhost:7113/api/Library/';
-  constructor(private http: HttpClient,private jwt: JwtHelperService) { }
+  constructor(private http: HttpClient, private jwt: JwtHelperService) {}
 
   createAccount(user: User) {
     return this.http.post(this.baseUrl + 'CreateAccount', user, {
@@ -36,7 +36,8 @@ export class ApiService {
 
   deleteToken() {
     localStorage.removeItem('access_token');
-    location.reload();
+
+    //location.reload();
   }
 
   getTokenUserInfo(): User | null {
@@ -67,18 +68,17 @@ export class ApiService {
     });
   }
 
-<<<<<<< HEAD
   //call the api and send the request in the backend and all the user data go through the pipe,
   //pipe is the method of rxjs data will go through the all method inside the pipe and subscribe this method in usercomponent.ts file
-  getAllUsers(){
-    return this.http.get<User[]>(this.baseUrl+'GetAllUsers').pipe(
-      map((users)=>{
-        users.map((user)=>{
-          let temp:User=user;
-          temp.userType= user.userType == 0?UserType.USER:UserType.ADMIN;
+  getAllUsers() {
+    return this.http.get<User[]>(this.baseUrl + 'GetAllUsers').pipe(
+      map((users) =>
+        users.map((user) => {
+          let temp: User = user;
+          temp.userType = user.userType == 0 ? UserType.USER : UserType.ADMIN;
           return temp;
         })
-      })
+      )
     );
   }
   blockUser(id: number) {
@@ -104,14 +104,11 @@ export class ApiService {
       responseType: 'text',
     });
   }
-  
-=======
+
   getOrdersOfUser(userid: number) {
     return this.http.get<Order[]>(this.baseUrl + 'GetOrders/' + userid);
   }
   getAllOrders() {
     return this.http.get<Order[]>(this.baseUrl + 'GetAllOrders');
   }
-
->>>>>>> 48111468f37f78cd6ab85a560ac2c272c5171617
 }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,12 +14,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ProfileComponent } from './profile/profile.component';
-<<<<<<< HEAD
 import { UsersListComponent } from './users-list/users-list.component';
-=======
 import { OrderComponent } from './order/order.component';
 import { OrdersComponent } from './orders/orders.component';
->>>>>>> 48111468f37f78cd6ab85a560ac2c272c5171617
+
 
 @NgModule({
   declarations: [
@@ -32,13 +29,9 @@ import { OrdersComponent } from './orders/orders.component';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-<<<<<<< HEAD
     UsersListComponent,
-=======
     OrderComponent,
-    OrdersComponent,
->>>>>>> 48111468f37f78cd6ab85a560ac2c272c5171617
-
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
