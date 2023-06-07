@@ -20,6 +20,10 @@ namespace API.Data_Access
         void UnblockUser(int userId);
         void DeactivateUser(int userId);
         void ActivateUser(int userId);
+        IList<BookCategory> GetAllCategories();
+        void InsertNewBook(Book book);
+        bool DeleteBook(int bookId);
+        void CreateCategory(BookCategory bookCategory);
 
 
     }

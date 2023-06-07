@@ -258,7 +258,61 @@ namespace API.Data_Access
             connection.Execute("update Users set Active=1 where Id=@Id", new { Id = userId });
         }
 
-        
+        public IList<BookCategory> GetAllCategories()
+        {
+            IEnumerable<BookCategory> categories;
 
+            using (var connection = new SqlConnection(DbConnection))
+            {
+                categories = connection.Query<BookCategory>("select * from BookCategories;");
+            }
+
+            return categories.ToList();
+        }
+
+        public void InsertNewBook(Book book)
+        {
+            using var conn = new SqlConnection(DbConnection);
+            var sql = "select Id from BookCategories where Category=@cat and SubCategory=@subcat";
+            var parameter1 = new
+            {
+                cat = book.Category.Category,
+                subcat = book.Category.SubCategory
+            };
+            var categoryId = conn.ExecuteScalar<int>(sql, parameter1);
+
+            sql = "insert into Books (Title, Author, Price, Ordered, CategoryId) values (@title, @author, @price, @ordered, @catid);";
+            var parameter2 = new
+            {
+                title = book.Title,
+                author = book.Author,
+                price = book.Price,
+                ordered = false,
+                catid = categoryId
+            };
+            conn.Execute(sql, parameter2);
+        }
+
+        public bool DeleteBook(int bookId)
+        {
+            var deleted = false;
+            using (var connection = new SqlConnection(DbConnection))
+            {
+                var sql = $"delete Books where Id={bookId}";
+                deleted = connection.Execute(sql) == 1;
+            }
+            return deleted;
+        }
+
+        public void CreateCategory(BookCategory bookCategory)
+        {
+            using var connection = new SqlConnection(DbConnection);
+            var parameter = new
+            {
+                cat = bookCategory.Category,
+                subcat = bookCategory.SubCategory
+            };
+            connection.Execute("insert into BookCategories (category, subcategory) values (@cat, @subcat);", parameter);
+        }
     }
 }

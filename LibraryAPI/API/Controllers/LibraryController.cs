@@ -148,6 +148,45 @@ namespace API.Controllers
             }
             return Ok("success");
         }
+        [HttpGet("GetAllCategories")]
+        public IActionResult GetAllCategories()
+        {
+            var categories = library.GetAllCategories();
+            var x = categories.GroupBy(c => c.Category).Select(item =>
+            {
+                return new
+                {
+                    name = item.Key,
+                    children = item.Select(item => new { name = item.SubCategory }).ToList()
+                };
+            }).ToList();
+            return Ok(x);
+        }
+        [HttpPost("InsertBook")]
+        public IActionResult InsertBook(Book book)
+        {
+            book.Title = book.Title.Trim();
+            book.Author = book.Author.Trim();
+            book.Category.Category = book.Category.Category.ToLower();
+            book.Category.SubCategory = book.Category.SubCategory.ToLower();
+
+            library.InsertNewBook(book);
+            return Ok("Inserted");
+        }
+        [HttpDelete("DeleteBook/{id}")]
+        public IActionResult DeleteBook(int id)
+        {
+            var returnResult = library.DeleteBook(id) ? "success" : "fail";
+            return Ok(returnResult);
+        }
+        [HttpPost("InsertCategory")]
+        public IActionResult InsertCategory(BookCategory bookCategory)
+        {
+            bookCategory.Category = bookCategory.Category.ToLower();
+            bookCategory.SubCategory = bookCategory.SubCategory.ToLower();
+            library.CreateCategory(bookCategory);
+            return Ok("Inserted");
+        }
 
     }
 }
