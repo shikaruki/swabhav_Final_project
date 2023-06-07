@@ -2,6 +2,8 @@
 using Dapper;
 using Microsoft.Data.SqlClient;
 using System.Data.Common;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace API.Data_Access
 {
@@ -15,11 +17,14 @@ namespace API.Data_Access
             DbConnection = configuration["connectionStrings:DBConnect"] ?? "";
         }
 
-        public bool AuthenticateUser(string email, string password, out User? user)
+        public bool AuthenticateUser(string email, string _password, out User? user)
         {
-            var result = false;
+             var result = false;
+
+            var password = HashPassword(_password); 
             using (var connection = new SqlConnection(DbConnection))
             {
+               
                 result = connection.ExecuteScalar<bool>("select count(1) from Users where email=@email and password=@password;", new { email, password });
                 if (result)
                 {
@@ -44,7 +49,7 @@ namespace API.Data_Access
                     ln = user.LastName,
                     em = user.Email,
                     mb = user.Mobile,
-                    pwd = user.Password,
+                    pwd = HashPassword(user.Password),
                     blk = user.Blocked,
                     act = user.Active,
                     con = user.CreatedOn,
@@ -54,6 +59,36 @@ namespace API.Data_Access
                 result = connection.Execute(sql, parameters);
             }
             return result;
+        }
+
+        //private static string HashPassword(string password)
+        //{
+        //    using (SHA1 sha256 = SHA1.Create())
+        //    {
+        //        byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+        //        StringBuilder builder = new StringBuilder();
+        //        foreach (byte b in bytes)
+        //        {
+        //            builder.Append(b.ToString("x2"));
+        //        }
+        //        return builder.ToString();
+        //    }
+
+
+        private string HashPassword(string password)
+        {
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] inputBytes = Encoding.UTF8.GetBytes(password);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    builder.Append(hashBytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
 
         public IList<Book> GetAllBooks()
@@ -73,12 +108,11 @@ namespace API.Data_Access
             return books.ToList();
         }
 
-<<<<<<< HEAD
         public IList<User> GetUsers()
         {
             IEnumerable<User> users;
-            using(var connection = new SqlConnection(DbConnection))
-            { 
+            using (var connection = new SqlConnection(DbConnection))
+            {
                 //map it into user object
                 users = connection.Query<User>("select * from  Users;");
                 //list of order of that user for calculating the fine
@@ -88,18 +122,18 @@ namespace API.Data_Access
                 foreach (var user in users)
                 {
                     //list of order belong to that particular user 
-                    var orders =listOfOrders.Where(lo=>lo.UserId == user.Id).ToList();
+                    var orders = listOfOrders.Where(lo => lo.UserId == user.Id).ToList();
                     var fine = 0;
                     foreach (var order in orders)
                     {
                         //if book is not return excute the query otherwise no
-                        if(order.BookId !=null && order.Returned !=null && order.Returned ==false)
+                        if (order.BookId != null && order.Returned != null && order.Returned == false)
                         {
-                            var orderDate=order.OrderDate;
+                            var orderDate = order.OrderDate;
                             var maxDate = orderDate.AddDays(10);
-                            var currentDate=DateTime.Now;
+                            var currentDate = DateTime.Now;
 
-                            var extraDays=(currentDate-maxDate).Days;
+                            var extraDays = (currentDate - maxDate).Days;
                             //if extra days are negative assign a 0 otherwise assign a extradays
                             extraDays = extraDays < 0 ? 0 : extraDays;
                             //50 rs for per day and assign it to the user fine
@@ -110,8 +144,8 @@ namespace API.Data_Access
                 }
             }
             return users.ToList();
-=======
-        public IList<Order> GetAllOrders()
+        }
+         public IList<Order> GetAllOrders()
         {
             IEnumerable<Order> orders;
             using (var connection = new SqlConnection(DbConnection))
@@ -149,7 +183,6 @@ namespace API.Data_Access
                 orders = connection.Query<Order>(sql, new { Id = userId });
             }
             return orders.ToList();
->>>>>>> 48111468f37f78cd6ab85a560ac2c272c5171617
         }
 
         public bool IsEmailAvailable(string email)
@@ -164,11 +197,9 @@ namespace API.Data_Access
             return !result;
         }
 
-<<<<<<< HEAD
 
 
 
-=======
         public bool OrderBook(int userId, int bookId)
         {
             var ordered = false;
@@ -187,6 +218,20 @@ namespace API.Data_Access
 
             return ordered;
         }
->>>>>>> 48111468f37f78cd6ab85a560ac2c272c5171617
+
+        public bool ReturnBook(int userId, int bookId)
+        {
+            var returned = false;
+            using(var connection = new SqlConnection(DbConnection))
+            {
+                //query for updating the ordered column of the book that book is aviable now
+                var sql = $"update Books set Ordered =0 where Id={bookId};";
+                connection.Execute(sql);
+                //query for updating the ordered column of the order table after the return of the book
+                sql = $"update Orders set Returned=1 where  UserId={userId}and BookId={bookId};";
+                returned = connection.Execute(sql) == 1;
+            }
+            return returned;
+        }
     }
 }

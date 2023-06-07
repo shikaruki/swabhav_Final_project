@@ -1,0 +1,35 @@
+import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from '../services/api.service';
+
+@Component({
+  selector: 'app-returnbook',
+  templateUrl: './returnbook.component.html',
+  styleUrls: ['./returnbook.component.css']
+})
+export class ReturnbookComponent {
+status:string='';
+bookForm: FormGroup;
+constructor(private api: ApiService,private fb:FormBuilder){
+this.bookForm= this.fb.group({
+  bookId:fb.control('',[Validators.required]),
+  userId:fb.control('',[Validators.required]),
+})
+}
+returnBook(){
+  //get the user id and book id from the form
+  let book =(this.bookForm.get('bookId')as FormControl).value;
+  let user =(this.bookForm.get('userId')as FormControl).value;
+  this.api.returnBook(book,user).subscribe({
+    next:(res:any)=>{
+    if(res==='success'){
+      this.status='Book Returned';
+    }else{
+      this.status=res;
+    }
+
+    },
+    error:(err:any)=>console.log(err),
+  });
+}
+}

@@ -1,0 +1,25 @@
+:host {
+    display: block;
+    width: 70%;
+    margin: 3rem auto 0;
+}
+
+mat-card {
+    width: 500px;
+}
+mat-card-title{
+    color: #DB005B;
+}
+mat-card mat-card-content {
+    margin: 0;
+    display: grid;
+}
+
+mat-card mat-card-content h1 {
+    text-align: center;
+}
+
+
+mat-card mat-card-actions button {
+    width: 100%;
+}

@@ -101,5 +101,12 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("ReturnBook/{bookId}/{userId}")]
+        public IActionResult ReturnBook(string bookId,string userId) 
+        {
+            var result= library.ReturnBook(int.Parse(userId),int.Parse(bookId));
+            return Ok(result == true ? "success":"not returned");
+        }
+
     }
 }
