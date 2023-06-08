@@ -10,7 +10,7 @@ namespace LibraryWebAPI.Controllers
     {
         private readonly IDataAccess library;
         private readonly IConfiguration configuration;
-        public AdminTask(IDataAccess library, IConfiguration configuration = null)
+        public AdminTask(IDataAccess library, IConfiguration configuration )
         {
             this.library = library;
             this.configuration = configuration;

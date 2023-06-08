@@ -1,6 +1,8 @@
 ﻿using API.Data_Access;
 using API.Model;
 using Microsoft.AspNetCore.Mvc;
+using LibraryWebAPI.Services;
+ 
 
 namespace API.Controllers
 {
@@ -11,7 +13,7 @@ namespace API.Controllers
         private readonly IDataAccess library;
         private readonly IConfiguration configuration;
 
-        public LibraryController(IDataAccess library, IConfiguration configuration = null)
+        public LibraryController(IDataAccess library, IConfiguration configuration)
         {
             this.library = library;
             this.configuration = configuration;
@@ -39,6 +41,7 @@ namespace API.Controllers
             user.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             user.UserType = UserType.USER;
             library.CreateUser(user);
+            
             return Ok("Account created successfully!");
         }
         [HttpGet("Login")]

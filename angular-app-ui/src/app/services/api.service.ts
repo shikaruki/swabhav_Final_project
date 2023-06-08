@@ -8,6 +8,8 @@ import { map } from 'rxjs/internal/operators/map';
 })
 export class ApiService {
   baseUrl = 'https://localhost:7113/LibraryWebApi/v1/Library/';
+  userUrl ='https://localhost:7113/LibraryWebApi/v1/UserTask/';
+  adminUrl='https://localhost:7113/LibraryWebApi/v1/AdminTask/';
   constructor(private http: HttpClient, private jwt: JwtHelperService) { }
 
   createAccount(user: User) {
@@ -62,15 +64,17 @@ export class ApiService {
   }
 
   orderBook(userId: number, bookId: number) {
-    return this.http.get(this.baseUrl + 'OrderBook/' + userId + '/' + bookId, {
+
+    return this.http.get(this.userUrl + 'OrderBook/' + userId + '/' + bookId, {
       responseType: 'text',
     });
   }
 
+
   //call the api and send the request in the backend and all the user data go through the pipe,
   //pipe is the method of rxjs data will go through the all method inside the pipe and subscribe this method in usercomponent.ts file
   getAllUsers() {
-    return this.http.get<User[]>(this.baseUrl + 'GetAllUsers').pipe(
+    return this.http.get<User[]>(this.adminUrl + 'GetAllUsers').pipe(
       map((users) =>
         users.map((user) => {
           let temp: User = user;
@@ -81,53 +85,60 @@ export class ApiService {
     );
   }
   blockUser(id: number) {
-    return this.http.get(this.baseUrl + 'ChangeBlockStatus/1/' + id, {
+    return this.http.get(this.adminUrl + 'ChangeBlockStatus/1/' + id, {
       responseType: 'text',
     });
   }
 
   unblockUser(id: number) {
-    return this.http.get(this.baseUrl + 'ChangeBlockStatus/0/' + id, {
+    return this.http.get(this.adminUrl + 'ChangeBlockStatus/0/' + id, {
       responseType: 'text',
     });
   }
 
   enableUser(id: number) {
-    return this.http.get(this.baseUrl + 'ChangeEnableStatus/1/' + id, {
+    return this.http.get(this.adminUrl + 'ChangeEnableStatus/1/' + id, {
       responseType: 'text',
     });
   }
 
   disableUser(id: number) {
-    return this.http.get(this.baseUrl + 'ChangeEnableStatus/0/' + id, {
+    return this.http.get(this.adminUrl + 'ChangeEnableStatus/0/' + id, {
       responseType: 'text',
     });
   }
 
 
   getOrdersOfUser(userid: number) {
-    return this.http.get<Order[]>(this.baseUrl + 'GetOrders/' + userid);
+    return this.http.get<Order[]>(this.userUrl + 'GetOrders/' + userid);
   }
   getAllOrders() {
-    return this.http.get<Order[]>(this.baseUrl + 'GetAllOrders');
+    return this.http.get<Order[]>(this.adminUrl + 'GetAllOrders');
   }
-  
+
   returnBook(bookId: string, userId: string) {
-    return this.http.get(this.baseUrl + 'ReturnBook/' + bookId + '/' + userId, {
+    return this.http.get(this.adminUrl + 'ReturnBook/' + bookId + '/' + userId, {
       responseType: 'text',
     });
 
   }
 
   insertBook(book: any) {
-    return this.http.post(this.baseUrl + 'InsertBook', book, {
+    return this.http.post(this.adminUrl + 'InsertBook', book, {
       responseType: 'text',
     });
   }
 
   deleteBook(id: number) {
-    return this.http.delete(this.baseUrl + 'DeleteBook/' + id, {
+    return this.http.delete(this.adminUrl + 'DeleteBook/' + id, {
       responseType: 'text',
     });
+  }
+  insertCategory(category: string, subcategory: string) {
+    return this.http.post(
+      this.adminUrl + 'InsertCategory',
+      { category: category, subCategory: subcategory },
+      { responseType: 'text' }
+    );
   }
 }

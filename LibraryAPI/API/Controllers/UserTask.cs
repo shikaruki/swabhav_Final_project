@@ -11,7 +11,7 @@ namespace LibraryWebAPI.Controllers
 
         private readonly IDataAccess library;
         private readonly IConfiguration configuration;
-        public UserTask(IDataAccess library, IConfiguration configuration = null)
+        public UserTask(IDataAccess library, IConfiguration configuration )
         {
             this.library = library;
             this.configuration = configuration;

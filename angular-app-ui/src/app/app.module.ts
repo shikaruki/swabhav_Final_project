@@ -21,6 +21,7 @@ import { ReturnbookComponent } from './returnbook/returnbook.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { OrdersComponent } from './orders/orders.component';
 import { ManageBooksComponent } from './manage-books/manage-books.component';
+import { ManageCategoriesComponent } from './manage-categories/manage-categories.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ManageBooksComponent } from './manage-books/manage-books.component';
     ForgotComponent,
     ReturnbookComponent,
     ManageBooksComponent,
+    ManageCategoriesComponent,
 
     ],
   imports: [

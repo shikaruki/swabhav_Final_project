@@ -12,6 +12,7 @@ import { ForgotComponent } from './forgot/forgot.component';
 import { ReturnbookComponent } from './returnbook/returnbook.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ManageBooksComponent } from './manage-books/manage-books.component';
+import { ManageCategoriesComponent } from './manage-categories/manage-categories.component';
 
 
 const routes: Routes = [
@@ -53,7 +54,7 @@ const routes: Routes = [
     component: OrdersComponent,
     canActivate: [AuthorizationGuard],
   },
-  
+
   {
     path:'books/return',
     component:ReturnbookComponent,
@@ -64,6 +65,11 @@ const routes: Routes = [
     component: ManageBooksComponent,
     canActivate: [AuthorizationGuard],
   },
+  {
+    path :'books/categories',
+    component:ManageCategoriesComponent,
+    canActivate:[AuthorizationGuard],
+  }
 ];
 
 @NgModule({
