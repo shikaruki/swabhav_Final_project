@@ -3,12 +3,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Book, Order, User, UserType } from '../models/models';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/internal/operators/map';
-import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  baseUrl = 'https://localhost:7113/api/Library/';
+  baseUrl = 'https://localhost:7113/LibraryWebApi/v1/Library/';
   constructor(private http: HttpClient, private jwt: JwtHelperService) { }
 
   createAccount(user: User) {

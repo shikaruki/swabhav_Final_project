@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Final_Project\\swabhav_Final_project\\LibraryAPI\\API\\API.csproj": {}
+    "D:\\Final_Project\\swabhav_Final_project\\LibraryAPI\\API\\LibraryWebAPI.csproj": {}
   },
   "projects": {
-    "D:\\Final_Project\\swabhav_Final_project\\LibraryAPI\\API\\API.csproj": {
+    "D:\\Final_Project\\swabhav_Final_project\\LibraryAPI\\API\\LibraryWebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Final_Project\\swabhav_Final_project\\LibraryAPI\\API\\API.csproj",
-        "projectName": "API",
-        "projectPath": "D:\\Final_Project\\swabhav_Final_project\\LibraryAPI\\API\\API.csproj",
+        "projectUniqueName": "D:\\Final_Project\\swabhav_Final_project\\LibraryAPI\\API\\LibraryWebAPI.csproj",
+        "projectName": "LibraryWebAPI",
+        "projectPath": "D:\\Final_Project\\swabhav_Final_project\\LibraryAPI\\API\\LibraryWebAPI.csproj",
         "packagesPath": "C:\\Users\\kanoj\\.nuget\\packages\\",
         "outputPath": "D:\\Final_Project\\swabhav_Final_project\\LibraryAPI\\API\\obj\\",
         "projectStyle": "PackageReference",
