@@ -2,7 +2,8 @@
 using API.Model;
 using Microsoft.AspNetCore.Mvc;
 using LibraryWebAPI.Services;
- 
+using MailKit.Net.Smtp;
+using MimeKit;
 
 namespace API.Controllers
 {
@@ -19,18 +20,6 @@ namespace API.Controllers
             this.configuration = configuration;
 
         }
-
-
-        private string GenerateResetToken(string email)
-        {
-            // Logic to generate a unique reset token for the user
-            // You can customize this based on your application's requirements
-            // This could involve generating a random token and associating it with the user in your data storage
-            return "your-reset-token";
-        }
-
-
-
         [HttpPost("CreateAccount")]
         public IActionResult CreateAccount(User user)
         {
@@ -61,6 +50,28 @@ namespace API.Controllers
             }
             return Ok("Invalid");
         }
+
+
+        [HttpPost("ForgetPassword")]
+        public IActionResult ForgetPassword(string _email)
+        {
+
+            if (!library.IsEmailAvailable(_email))
+            {
+                var userId =library.GetUserViaMail(_email);
+                if (userId == -1)
+                    return Ok("Having issue with getting the user id");
+                Random rand = new Random();
+                string pass = rand.Next(10000000,90000000).ToString();
+                
+                library.AlterPassword(userId,pass,_email);
+                
+                return Ok("PasswordSentToMail");               
+                
+            }
+            return Ok("Invalid Email");
+        }
+
 
         [HttpGet("GetAllBooks")]
         public IActionResult GetALlBooks()

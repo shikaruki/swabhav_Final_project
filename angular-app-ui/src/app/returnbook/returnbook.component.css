@@ -3,7 +3,9 @@
     width: 70%;
     margin: 3rem auto 0;
 }
-
+h1{
+  color: #DB005B;
+}
 mat-card {
     width: 500px;
 }

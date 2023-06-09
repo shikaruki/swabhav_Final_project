@@ -4,7 +4,6 @@ using LibraryWebAPI.Services;
 using MailKit.Net.Smtp;
 using Microsoft.Data.SqlClient;
 using MimeKit;
-using System.Data.Common;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -45,6 +44,7 @@ namespace API.Data_Access
         public  int CreateUser(User user)
         {
             var result = 0;
+            if(IsEmailAvailable(user.Email))return result;
             using (var connection = new SqlConnection(DbConnection))
             {
                 var parameters = new
@@ -146,7 +146,7 @@ namespace API.Data_Access
         //    }
 
 
-        private string HashPassword(string password)
+        public string HashPassword(string password)
         {
             using (MD5 md5 = MD5.Create())
             {
@@ -269,7 +269,20 @@ namespace API.Data_Access
             return !result;
         }
 
+        public int GetUserViaMail(string email)
+        {
+            var result =-1;
 
+            using (var connection = new SqlConnection(DbConnection))
+            {
+
+                //select Id from Users where Email = 'rancho.kartar@gmail.com';
+                result = connection.Execute($"select Id from Users where Email='@email';", new { email });
+                
+            }
+            
+            return result;
+        }
 
 
         public bool OrderBook(int userId, int bookId)
@@ -309,6 +322,30 @@ namespace API.Data_Access
         {
             using var connection = new SqlConnection(DbConnection);
             connection.Execute("update Users set Blocked=1 where Id=@Id", new { Id = userId });
+        }
+        
+        public void AlterPassword(int userId,string pass, string _email)
+        {
+            string _pass = HashPassword(pass.ToString());
+            var email = new MimeMessage();
+            email.Sender = MailboxAddress.Parse("cool.ravi342@gmail.com");
+            email.To.Add(MailboxAddress.Parse(_email)); email.Subject = $"Welcome, User in Library Mangement App";
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = $"Thank You ! Your New Password For Library Management App. is \n" +
+                $"Your \n Password is : {pass}\n" +
+                $"\n Thank You by @Library Management Team"
+            };
+            using var smtp = new SmtpClient();
+            smtp.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+            //smtp.Authenticate("cool.ravi342@gmail.com", "yaak ezho vkzj ljzw");
+            smtp.Authenticate("cool.ravi342@gmail.com", "namv pwkg mpmv jyge");
+
+            smtp.Send(email);
+
+            smtp.Disconnect(true);
+            using var connection = new SqlConnection(DbConnection);
+            connection.ExecuteAsync("update Users set Password=@pass where Id=@Id", new {pass=_pass, Id = userId });
         }
 
         public void UnblockUser(int userId)

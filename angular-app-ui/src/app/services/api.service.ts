@@ -141,4 +141,10 @@ export class ApiService {
       { responseType: 'text' }
     );
   }
+  ForgetPassword(email :string ){
+    return this.http.post(
+      this.baseUrl + 'ForgetPassword',email, {
+        responseType: 'text',
+      });
+  }
 }
